@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirmation Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 400px;
+        }
+        .logo {
+            width: 300px;
+            margin-bottom: 20px;
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            text-align: left;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input[type="text"], input[type="number"], select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        .btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        .btn:hover {
+            background-color: #45a049;
+        }
+        .message {
+            margin-top: 20px;
+            font-size: 16px;
+            font-weight: bold;
+        }
+        .success {
+            color: green;
+        }
+        .error {
+            color: red;
+        }
+        .random-number {
+            margin-top: 20px;
+            font-size: 16px;
+            font-weight: bold;
+            color: #333;
+        }
+        .salary-note {
+            background-color: #e7f3fe;
+            color: #31708f;
+            padding: 10px;
+            border: 1px solid #bce8f1;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/8/8b/AWAS_logo.svg" alt="Avaas Consultancy Logo" class="logo">
+
+        <!-- Moved salary note here -->
+        <div class="salary-note">
+            Your internship salary will be between 35k - 70k depending on the company.
+        </div>
+
+      
+
+        <!-- New fields for interview availability -->
+        <label for="hp-interview">Available for HP Interview on 11th?</label>
+        <select id="hp-interview" name="hp-interview" required>
+            <option value="" disabled selected>Select Yes or No</option>
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+        </select>
+
+        <label for="jp-interview">Available for JP Interview on 12th?</label>
+        <select id="jp-interview" name="jp-interview" required>
+            <option value="" disabled selected>Select Yes or No</option>
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+        </select>
+        <h1>Consultancy Fee</h1>
+        <form id="payment-form" onsubmit="handlePayment(event)">
+            <label for="consultancy-fee">One-time Consultancy Payment Fee</label>
+            <input type="number" id="consultancy-fee" name="consultancy-fee" value="2799" readonly>
+
+            <label for="recruiter-name">Recruiter Name</label>
+            <input type="text" id="recruiter-name" name="recruiter-name" placeholder="Enter Recruiter Name" required>
+
+            <label for="utr-number">UTR Number</label>
+            <input type="text" id="utr-number" name="utr-number" placeholder="Enter UTR Number" required>
+
+            <button type="submit" class="btn">Confirm Payment</button>
+        </form>
+
+        <div id="payment-message" class="message"></div>
+        <div id="random-number-message" class="random-number"></div>
+    </div>
+
+    <script>
+        // Handle payment form submission
+        function handlePayment(event) {
+            event.preventDefault(); // Prevent the default form submission
+
+            // Get the UTR number
+            const utrNumber = document.getElementById('utr-number').value;
+            const messageDiv = document.getElementById('payment-message');
+            const randomNumberDiv = document.getElementById('random-number-message');
+
+            // Validate UTR number
+            if (utrNumber === '4567') {
+                // Generate a random number
+                const randomNumber = Math.floor(100000 + Math.random() * 900000); // Random 6-digit number
+                messageDiv.innerHTML = "<span class='success'>Payment Successful!</span>";
+                randomNumberDiv.innerHTML = `Your unique reference number is: ${randomNumber}. Please share this with the recruiter.`;
+            } else {
+                messageDiv.innerHTML = "<span class='error'>Invalid payment! Please check with the recruiter.</span>";
+                randomNumberDiv.innerHTML = ""; // Clear the random number message
+            }
+        }
+    </script>
+
+</body>
+</html>
